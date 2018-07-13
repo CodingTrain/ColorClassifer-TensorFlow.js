@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
+
 <body>
     <div id="main" class="card">
         <div id="rgb-Canvas"></div>
@@ -31,6 +33,11 @@
                 <p>B</p>
                 <input type="range" min="0" max="255" value="255" class="slider" id="blue-slider">
             </div>
+        </div>
+        <div class="seperator"></div>
+        <div id="graph-Container">
+            <div id="prediction">color</div>
+            <div id="loss">loss</div>
         </div>
     </div>
 </body>

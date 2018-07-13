@@ -109,9 +109,9 @@ function draw() {
   let g = gSlider.value();
   let b = bSlider.value();
   background(r, g, b);
-  strokeWeight(2);
-  stroke(255);
-  line(frameCount % width, 0, frameCount % width, height);
+  //strokeWeight(2);
+  //stroke(255);
+  //line(frameCount % width, 0, frameCount % width, height);
   tf.tidy(() => {
     const input = tf.tensor2d([
       [r, g, b]
