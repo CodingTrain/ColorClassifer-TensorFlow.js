@@ -15,6 +15,7 @@ let xs, ys;
 let rSlider, gSlider, bSlider;
 let labelP;
 let lossP;
+let canvas;
 
 let labelList = [
   'red-ish',
@@ -34,12 +35,20 @@ function preload() {
 
 function setup() {
   // Crude interface
+  canvas = createCanvas(200,200);
   labelP = createP('label');
   lossP = createP('loss');
   rSlider = createSlider(0, 255, 255);
   gSlider = createSlider(0, 255, 0);
   bSlider = createSlider(0, 255, 255);
-
+    
+  canvas.parent('rgb-Canvas');
+  labelP.parent('prediction');
+  lossP.parent('loss');
+  rSlider.parent('red-Slider');
+  gSlider.parent('green-Slider');
+  bSlider.parent('blue-Slider');
+               
   let colors = [];
   let labels = [];
   for (let record of data.entries) {

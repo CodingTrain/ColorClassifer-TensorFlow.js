@@ -10,8 +10,29 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
 	<script src="sketch.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 <body>
+    <div id="main" class="card">
+        <div id="rgb-Canvas"></div>
+        <div id="prediction"></div>
+        <div id="loss"></div>
+        <div class="color-Picker">
+            <div class="single-Slider">
+                <p>R</p>
+                <div id="red-Slider"></div>
+            </div>
+            <div class="single-Slider">
+                <p>G</p>
+                <div id="green-Slider"></div>
+            </div>
+            
+            <div class="single-Slider">
+                <p>B</p>
+                <div id="blue-Slider"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
