@@ -17,20 +17,19 @@
     <div id="main" class="card">
         <div id="rgb-Canvas"></div>
         <div id="prediction"></div>
-        <div id="loss"></div>
+        <div id="loss">loss</div>
         <div class="color-Picker">
             <div class="single-Slider">
                 <p>R</p>
-                <div id="red-Slider"></div>
+                <input type="range" min="0" max="255" value="255" class="slider" id="red-slider">
             </div>
             <div class="single-Slider">
                 <p>G</p>
-                <div id="green-Slider"></div>
+                <input type="range" min="0" max="255" value="200" class="slider" id="green-slider">
             </div>
-            
             <div class="single-Slider">
                 <p>B</p>
-                <div id="blue-Slider"></div>
+                <input type="range" min="0" max="255" value="255" class="slider" id="blue-slider">
             </div>
         </div>
     </div>

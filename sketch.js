@@ -36,18 +36,13 @@ function preload() {
 function setup() {
   // Crude interface
   canvas = createCanvas(200,200);
-  labelP = createP('label');
-  lossP = createP('loss');
-  rSlider = createSlider(0, 255, 255);
-  gSlider = createSlider(0, 255, 0);
-  bSlider = createSlider(0, 255, 255);
+  labelP = select('#prediction');
+  lossP = select('#loss');
+  rSlider = select('#red-slider');
+  gSlider = select('#green-slider');
+  bSlider = select('#blue-slider');
     
   canvas.parent('rgb-Canvas');
-  labelP.parent('prediction');
-  lossP.parent('loss');
-  rSlider.parent('red-Slider');
-  gSlider.parent('green-Slider');
-  bSlider.parent('blue-Slider');
                
   let colors = [];
   let labels = [];
