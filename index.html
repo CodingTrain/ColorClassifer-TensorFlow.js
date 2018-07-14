@@ -6,20 +6,18 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>color classifier</title>
+	<title>Color Classifier</title>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"> </script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 	<script src="sketch.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-
 </head>
 
 <body>
     <div id="main" class="card">
         <div id="rgb-Canvas"></div>
-        <div id="prediction"></div>
-        <div id="loss">loss</div>
         <div class="color-Picker">
             <div class="single-Slider">
                 <p>R</p>
@@ -32,13 +30,15 @@
             <div class="single-Slider">
                 <p>B</p>
                 <input type="range" min="0" max="255" value="255" class="slider" id="blue-slider">
-            </div>
+			</div>
+			<div id="prediction" class="pred">Color: </div>
         </div>
         <div class="seperator"></div>
         <div id="graph-Container">
-            <div id="prediction">color</div>
-            <div id="loss">loss</div>
-        </div>
+            <div id="loss">Loss: </div>
+		</div>
+		<div id="graph"></div>
     </div>
 </body>
+
 </html>
