@@ -15,6 +15,11 @@ let xs, ys;
 let rSlider, gSlider, bSlider;
 let labelP;
 let lossP;
+let canvas;
+let graph;
+let lossX = [];
+let lossY = [];
+let accY = [];
 
 let labelList = [
   'red-ish',
@@ -29,16 +34,20 @@ let labelList = [
 ]
 
 function preload() {
-  data = loadJSON('colorData.json');
+  data = loadJSON('./colorData.json');
 }
 
 function setup() {
   // Crude interface
-  labelP = createP('label');
-  lossP = createP('loss');
-  rSlider = createSlider(0, 255, 255);
-  gSlider = createSlider(0, 255, 0);
-  bSlider = createSlider(0, 255, 255);
+  canvas = createCanvas(200, 200);
+  graph = document.getElementById('graph');
+  labelP = select('#prediction');
+  lossP = select('#loss');
+  rSlider = select('#red-slider');
+  gSlider = select('#green-slider');
+  bSlider = select('#blue-slider');
+
+  canvas.parent('rgb-Canvas');
 
   let colors = [];
   let labels = [];
@@ -84,11 +93,14 @@ async function train() {
   await model.fit(xs, ys, {
     shuffle: true,
     validationSplit: 0.1,
-    epochs: 100,
+    epochs: 50,
     callbacks: {
       onEpochEnd: (epoch, logs) => {
         console.log(epoch);
-        lossP.html('loss: ' + logs.loss.toFixed(5));
+        lossY.push(logs.val_loss.toFixed(2));
+        accY.push(logs.val_acc.toFixed(2));
+        lossX.push(epoch + 1);
+        lossP.html('Loss: ' + logs.loss.toFixed(5));
       },
       onBatchEnd: async (batch, logs) => {
         await tf.nextFrame();
@@ -98,6 +110,31 @@ async function train() {
       },
     },
   });
+}
+
+function plotTraining() {
+  let layout = {
+    width: 600,
+    height: 300,
+    title: 'Graph of learning progress',
+    xaxis: {
+      title: 'No. of Epochs'
+    }
+  };
+
+  let loss = {
+    x: lossX,
+    y: lossY,
+    name: 'Val Loss'
+  };
+
+  let acc = {
+    x: lossX,
+    y: accY,
+    name: 'Val Accuracy'
+  };
+
+  Plotly.newPlot(graph, [loss, acc], layout);
 }
 
 function draw() {
@@ -116,6 +153,9 @@ function draw() {
     let argMax = results.argMax(1);
     let index = argMax.dataSync()[0];
     let label = labelList[index];
-    labelP.html(label);
+    labelP.html("Color: " + label);
   });
+
+  plotTraining();
+
 }
