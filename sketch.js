@@ -15,6 +15,7 @@ let xs, ys;
 let rSlider, gSlider, bSlider;
 let labelP;
 let lossP;
+let canvas;
 
 let labelList = [
   'red-ish',
@@ -34,12 +35,15 @@ function preload() {
 
 function setup() {
   // Crude interface
-  labelP = createP('label');
-  lossP = createP('loss');
-  rSlider = createSlider(0, 255, 255);
-  gSlider = createSlider(0, 255, 0);
-  bSlider = createSlider(0, 255, 255);
-
+  canvas = createCanvas(200,200);
+  labelP = select('#prediction');
+  lossP = select('#loss');
+  rSlider = select('#red-slider');
+  gSlider = select('#green-slider');
+  bSlider = select('#blue-slider');
+    
+  canvas.parent('rgb-Canvas');
+               
   let colors = [];
   let labels = [];
   for (let record of data.entries) {
@@ -105,9 +109,9 @@ function draw() {
   let g = gSlider.value();
   let b = bSlider.value();
   background(r, g, b);
-  strokeWeight(2);
-  stroke(255);
-  line(frameCount % width, 0, frameCount % width, height);
+  //strokeWeight(2);
+  //stroke(255);
+  //line(frameCount % width, 0, frameCount % width, height);
   tf.tidy(() => {
     const input = tf.tensor2d([
       [r, g, b]
