@@ -12,35 +12,36 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 	<script src="sketch.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-	<div id="main" class="card">
-		<div id="rgb-Canvas"></div>
-		<div class="color-Picker">
-			<div class="single-Slider">
-				<p>R</p>
-				<input type="range" min="0" max="255" value="255" class="slider" id="red-slider">
-			</div>
-			<div class="single-Slider">
-				<p>G</p>
-				<input type="range" min="0" max="255" value="200" class="slider" id="green-slider">
-			</div>
-			<div class="single-Slider">
-				<p>B</p>
-				<input type="range" min="0" max="255" value="255" class="slider" id="blue-slider">
-			</div>
-			<div id="prediction" class="pred">Color: </div>
-		</div>
-		<div class="seperator"></div>
-		<div id="graph-Container">
-			<div id="loss">Loss: </div>
-			<div id="graph"></div>
-			<div id="batch_graph"></div>
-		</div>
-	</div>
+    <div id="main" class="card">
+        <div id="rgb-Canvas"></div>
+        <div id="prediction"></div>
+        <div id="loss">loss</div>
+        <div class="color-Picker">
+            <div class="single-Slider">
+                <p>R</p>
+                <input type="range" min="0" max="255" value="255" class="slider" id="red-slider">
+            </div>
+            <div class="single-Slider">
+                <p>G</p>
+                <input type="range" min="0" max="255" value="200" class="slider" id="green-slider">
+            </div>
+            <div class="single-Slider">
+                <p>B</p>
+                <input type="range" min="0" max="255" value="255" class="slider" id="blue-slider">
+            </div>
+        </div>
+        <div class="seperator"></div>
+        <div id="graph-Container">
+            <div id="prediction">color</div>
+            <div id="loss">loss</div>
+        </div>
+    </div>
 </body>
 
 </html>
