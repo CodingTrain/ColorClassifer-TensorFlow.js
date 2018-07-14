@@ -63,27 +63,7 @@ function setup() {
   ys = tf.oneHot(labelsTensor, 9).cast('float32');
   labelsTensor.dispose();
 
-  model = tf.sequential();
-  const hidden = tf.layers.dense({
-    units: 16,
-    inputShape: [3],
-    activation: 'sigmoid'
-  });
-  const output = tf.layers.dense({
-    units: 9,
-    activation: 'softmax'
-  });
-  model.add(hidden);
-  model.add(output);
-
-  const LEARNING_RATE = 0.25;
-  const optimizer = tf.train.sgd(LEARNING_RATE);
-
-  model.compile({
-    optimizer: optimizer,
-    loss: 'categoricalCrossentropy',
-    metrics: ['accuracy'],
-  });
+  model = buildModel();
 
   train();
 }
@@ -93,7 +73,7 @@ async function train() {
   await model.fit(xs, ys, {
     shuffle: true,
     validationSplit: 0.1,
-    epochs: 50,
+    epochs: 10,
     callbacks: {
       onEpochEnd: (epoch, logs) => {
         console.log(epoch);
@@ -110,6 +90,33 @@ async function train() {
       },
     },
   });
+}
+
+function buildModel() {
+  let md = tf.sequential();
+  const hidden = tf.layers.dense({
+    units: 15,
+    inputShape: [3],
+    activation: 'sigmoid'
+  });
+
+  const output = tf.layers.dense({
+    units: 9,
+    activation: 'softmax'
+  });
+  md.add(hidden);
+  md.add(output);
+
+  const LEARNING_RATE = 0.25;
+  const optimizer = tf.train.sgd(LEARNING_RATE);
+
+  md.compile({
+    optimizer: optimizer,
+    loss: 'categoricalCrossentropy',
+    metrics: ['accuracy'],
+  });
+
+  return md
 }
 
 function plotTraining() {
@@ -136,7 +143,6 @@ function plotTraining() {
 
   Plotly.newPlot(graph, [loss, acc], layout);
 }
-
 function draw() {
   let r = rSlider.value();
   let g = gSlider.value();
@@ -157,5 +163,4 @@ function draw() {
   });
 
   plotTraining();
-
 }
