@@ -4,6 +4,13 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+}
+
+code {
+    background: #e3e4e5;
+    border-radius: 2px;
+    padding: 2px;
 }
 
 .card {
@@ -11,7 +18,33 @@ body {
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    display: flex;
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: 200px 200px 10px auto;
+    grid-template-rows: auto auto;
+}
+
+.btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.load-Save {
+    grid-column: 4 / 4;
+    grid-row: 2 / 3;
+}
+
+.color-Picker {
+    grid-column: 2 / 3;
 }
 
 .single-Slider {
@@ -89,8 +122,15 @@ body {
     width: 2px;
     border-radius: 2px;
     background: #d3d3d3;
+    grid-column: 3 / 3;
+    grid-row: 1 / 3;
 }
 
 .pred {
     margin: 10px;
+}
+
+#rgb-Canvas {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
 }

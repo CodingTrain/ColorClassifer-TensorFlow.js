@@ -2,17 +2,18 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Color Classifier</title>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"> </script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
-	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-	<script src="sketch.js"></script>
+    <title>Color Classifier</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="sketch.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
 <body>
@@ -30,18 +31,20 @@
             <div class="single-Slider">
                 <p>B</p>
                 <input type="range" min="0" max="255" value="255" class="slider" id="blue-slider">
-			</div>
+            </div>
+            <div id="prediction" class="pred">Color: </div>
         </div>
-        <div id="prediction" class="pred">Color: </div>
-        <button id="train">Start Training</button>
-        <div>Note: When saving a model, the topology and weights will be saved to your browsers `indexedDB` storage</div>
-        <button id="load">Load Model</button>
-        <button id="save">Save Model</button>
         <div class="seperator"></div>
         <div id="graph-Container">
             <div id="loss">Loss: </div>
-		</div>
-		<div id="graph"></div>
+            <div id="graph"></div>
+        </div>
+        <button id="train" class="btn">Start Training</button>
+        <div class="load-Save">
+            <p><b>Note:</b> When saving a model, the topology and weights <br> will be saved to your browsers <code>indexedDB</code> storage</p>
+            <button id="load" class="btn">Load Model</button>
+            <button id="save" class="btn">Save Model</button>
+        </div>
     </div>
 </body>
 
