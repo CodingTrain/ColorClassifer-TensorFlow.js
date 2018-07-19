@@ -17,9 +17,12 @@ let labelP;
 let lossP;
 let canvas;
 let graph;
+let saveBtn, loadBtn, trainBtn;
 let lossX = [];
 let lossY = [];
 let accY = [];
+let istraining;
+
 
 let labelList = [
   'red-ish',
@@ -37,6 +40,35 @@ function preload() {
   data = loadJSON('./colorData.json');
 }
 
+async function loadMd() {
+  console.log("Load");
+  if (localStorage.length > 0) {
+    const LEARNING_RATE = 0.25;
+    const optimizer = tf.train.sgd(LEARNING_RATE);
+    let item = Number(localStorage.getItem('saveNo'));
+    model = await tf.loadModel(`indexeddb://colorClassifier-${item}`);
+    model.compile({
+      optimizer: optimizer,
+      loss: 'categoricalCrossentropy',
+      metrics: ['accuracy'],
+    });
+  } else {
+    alert('No previous models saved!');
+  }
+}
+
+async function saveModel() {
+  console.log("Save");
+  if (localStorage.length > 0) {
+    let item = Number(localStorage.getItem('saveNo'));
+    await model.save(`indexeddb://colorClassifier-${item + 1}`);
+    localStorage.setItem('saveNo', item + 1);
+  } else {
+    await model.save(`indexeddb://colorClassifier-1`);
+    localStorage.setItem('saveNo', 1);
+  }
+}
+
 function setup() {
   // Crude interface
   canvas = createCanvas(200, 200);
@@ -46,6 +78,9 @@ function setup() {
   rSlider = select('#red-slider');
   gSlider = select('#green-slider');
   bSlider = select('#blue-slider');
+  saveBtn = select('#save');
+  loadBtn = select('#load');
+  trainBtn = select('#train');
 
   canvas.parent('rgb-Canvas');
   let colors = [];
@@ -64,10 +99,20 @@ function setup() {
 
   model = buildModel();
 
-  train();
+  //Methods for loading and saving the color classifier
+  saveBtn.mouseClicked(saveModel);
+  loadBtn.mouseClicked(loadMd);
+
+  // Method for training the model
+  istraining = false;
+  trainBtn.mouseClicked(train);
 }
 
 async function train() {
+  if (istraining) {
+    return;
+  }
+  istraining = true;
   // This is leaking https://github.com/tensorflow/tfjs/issues/457
   await model.fit(xs, ys, {
     shuffle: true,
@@ -78,14 +123,15 @@ async function train() {
         console.log(epoch);
         lossY.push(logs.val_loss.toFixed(2));
         accY.push(logs.val_acc.toFixed(2));
-        lossX.push(epoch + 1);
+        lossX.push(lossX.length + 1);
         lossP.html('Loss: ' + logs.loss.toFixed(5));
       },
       onBatchEnd: async (batch, logs) => {
         await tf.nextFrame();
       },
       onTrainEnd: () => {
-        console.log('finished')
+        istraining = false;
+        console.log('finished');
       },
     },
   });
